@@ -10,7 +10,7 @@ class indexController extends Controller
 	{
 		//echo "Hola desde index Controler";
 		$this->_view->titulo = 'portada';
-		$this->_view->renderizar('index');
+		$this->_view->renderizar('index', 'inicio');
 
 	}
 

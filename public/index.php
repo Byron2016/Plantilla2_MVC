@@ -18,6 +18,7 @@ require_once APP_PATH . 'Model.php';
 require_once APP_PATH . 'View.php';
 require_once APP_PATH . 'Register.php';
 
+
 //echo '<pre>'; print_r(get_required_files()); //verificar correccto importacion de archivos.
 
 /*
