@@ -13,9 +13,9 @@ class Request
 			$url = explode('/', $url);
 			$url = array_filter($url); //todos los elementos que no sean válidos en arreglo los elimina.
 
-			$this->_controlador = array_shift($url);
+			$this->_controlador = strtolower(array_shift($url));
 
-			$this->_metodo = array_shift($url);
+			$this->_metodo = strtolower(array_shift($url));
 			$this->_argumentos = $url;
 		}
 

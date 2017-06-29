@@ -20,12 +20,15 @@ require_once APP_PATH . 'Register.php';
 
 //echo '<pre>'; print_r(get_required_files()); //verificar correccto importacion de archivos.
 
-
-Prueba Request
+/*
+//Prueba Request
 $r = new Request();
 
 echo $r->getControlador() . '<br>';
 echo $r->getMetodo() . '<br>';
 print_r($r->getArgs());
+*/
 
+//prueba bootstrap
+Bootstrap::run(new Request);
 
