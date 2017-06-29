@@ -23,6 +23,7 @@ class postController extends Controller
     public function nuevo()
     {
     	$this->_view->titulo = 'Nuevo_post';
+        $this->_view->setJs(array('nuevo'));
     	//$this->_view->prueba = $this->getTexto('titulo');
 
         if($this->getInt('guardar') == 1){
