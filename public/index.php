@@ -18,7 +18,7 @@ require_once APP_PATH . 'Model.php';
 require_once APP_PATH . 'View.php';
 require_once APP_PATH . 'Register.php';
 require_once APP_PATH . 'DataBase.php';
-
+require_once APP_PATH . 'Session.php';
 
 //echo '<pre>'; print_r(get_required_files()); //verificar correccto importacion de archivos.
 
@@ -31,6 +31,7 @@ echo $r->getMetodo() . '<br>';
 print_r($r->getArgs());
 */
 
+Session::init();
 
 try {
 	//prueba bootstrap
