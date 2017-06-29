@@ -1,6 +1,13 @@
 <?php //if(isset($this->prueba)) echo $this->prueba; ?>
 <p></p>
 
+<script type="text/javascript">
+	$(document).ready(function(){
+		alert('funciona jquery');
+	})
+
+</script>
+
 <form id="form1" method="post" action="<?php echo BASE_URL; ?>post/nuevo" enctype='multipart/form-data'>
     <input type="hidden" name="guardar" value="1" />
     <p>Titulo:<br />
