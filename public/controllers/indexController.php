@@ -8,7 +8,8 @@ class indexController extends Controller
 
 	public function index()
 	{
-		echo "Hola desde index Controler";
+		//echo "Hola desde index Controler";
+		$this->_view->titulo = 'portada';
 		$this->_view->renderizar('index');
 
 	}
