@@ -29,6 +29,12 @@ echo $r->getMetodo() . '<br>';
 print_r($r->getArgs());
 */
 
-//prueba bootstrap
-Bootstrap::run(new Request);
+
+try {
+	//prueba bootstrap
+	Bootstrap::run(new Request);
+
+} catch(Exception $e) {
+	echo $e->getMessage();
+}
 
