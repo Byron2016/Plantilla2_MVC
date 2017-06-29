@@ -1,0 +1,438 @@
+PROGRAMAS:
+Instalar:
+	OpenSSH for Windows
+	Virtual Box
+	Vagrant
+	Git for windows 
+	PuTTY
+	Composer
+	
+
+OpenSSH for Windows
+	http://softwarerecs.stackexchange.com/questions/3000/ssh-implementation-for-cmd-exe
+	http://sshwindows.sourceforge.net/download/
+	http://linuxbsdos.com/2015/07/30/how-to-install-openssh-on-windows-10/
+	INSTALADOR: http://www.mls-software.com/opensshd.html
+
+Virtual Box
+	https://www.virtualbox.org/
+	
+Vagrant
+	1.- https://www.adictosaltrabajo.com/tutoriales/vagrant-install/
+	1.- https://styde.net/instalar-laravel-homestead-en-windows/
+	1.- https://www.sitepoint.com/getting-started-vagrant-windows/
+	2.- http://codehero.co/como-instalar-y-configurar-vagrant/
+	3.- https://carlosazaustre.es/blog/como-configurar-un-entorno-de-desarrollo-virtual-con-vagrant/
+	4.- https://styde.net/como-crear-un-entorno-de-desarrollo-virtual-con-vagrant/
+	5.- https://geekytheory.com/tutorial-vagrant-1-que-es-y-como-usarlo/
+	
+
+
+
+	Pasos:
+		vagrant init hashicorp/precise64
+		vagrant up
+		Si da error de guest ejecutar
+			vagrant plugin install vagrant-vbguest
+			Repetir hasta que este ok:
+				vagrant halt
+				vagrant up
+		vagrant ssh (ojo, en el paht debe estar al ssh.exe que se puso en el OpenSSH)
+		El directorio en que se pone luego del ssh es: /home/vagrant
+		El directorio compartido es: /vagrant
+		Error virtualguest:
+			http://sharadchhetri.com/2014/10/07/ubuntu-14-04-install-virtualbox-guest-additions-also-create-videos/
+			
+			https://www.youtube.com/watch?v=k9xQBKzpOjk
+			
+			/c/Users/Byron/.homestead
+			ssh-keygen -t rsa -C "bgva2005@homestead"
+		
+		
+	Instalación de SOFTWARE
+		Crear bootstrap.sh a la misma altura de Vagrantfile
+			    #!/usr/bin/env bash
+				
+			    apt-get update
+			    apt-get install -y apache2
+			    rm -rf /var/www
+			    ln -fs /vagrant /var/www
+		Editar Vagrantfile y poner
+			config.vm.provision :shell, :path => "bootstrap.sh"
+		Ejecutar:
+			Si máquina no está arrancada: vagrant up
+			Si máquina si está arrancada: vagrant reload --provision
+		Verificar correcta instalación:
+			vagrant ssh
+			wget -qO- 127.0.0.1
+		Configurando la red de la máquina virtual
+			Editar Vagrantfile y buscamos: config.vm.network
+				port forwarding – hacer un mapeo de puertos para que el tráfico que llega a un puerto del host (máquina física) se redirija a un puerto del guest (máquina virtual).
+				private network – crear otra red privada que sólo es accesible desde el host.
+				--> bridged network – hacer que el guest se comporte como otra máquina más dentro de la red del host.
+			Hacer vagrant reload
+			
+Homestead
+Usar esta: https://www.youtube.com/watch?v=k9xQBKzpOjk	
+	
+homestead.yaml multiple sites
+
+	
+	
+Git for windows  
+	https://git-for-windows.github.io/ 
+	https://git-scm.com/book/es/v1/Empezando-Instalando-Git
+	
+
+	
+	
+	
+	
+Composer: 
+	https://styde.net/instalacion-de-composer-y-laravel-en-windows/
+Homestead:
+	https://www.youtube.com/watch?v=vyTTq7lIbC4
+	https://styde.net/aprende-a-instalar-y-usar-vagrant-y-laravel-homestead/
+	https://styde.net/como-instalar-y-configurar-laravel-homestead-2-0/
+
+	Pasos:
+		vagrant  box add Laravel/homestead
+	
+	
+PuPHPet
+https://puphpet.com
+https://www.webmip.es/desarrolla-con-vagrant-virtualbox-en-windows-tutorial/
+https://www.youtube.com/watch?v=l6BF9BTIzI4
+	Para ver todos los comandos usados y mas información puedes leer el post completo aquí: https://www.webmip.es/desarrolla-con-vagrant-virtualbox-en-windows-tutorial/
+
+	Puedes ver mas videos suscribiendote aquí: www.youtube.com/subscription_center?add_user=djcolordisco
+	Puedes leer todos los post y tutoriales aqui: https://www.webmip.es/blog
+
+
+
+x.0.- Requerimientos
+x.0.1.- Instalado virtualbox
+x.0.2.- Instalado vagrant
+x.1.- Crear carpeta "dev" en C:\ . Esta carpeta actúa como nuestro servidor
+x.2.- Crear carpeta wordpress1. Esta carpeta actúa como nuestro sitio (es decir un cliente nuevo)
+x.3.- Crear carpeta www. Esta carpeta es dónde en cualquier servidor web ponemos nuestros archivos visibles por puerto 80 o 443 con conexiones ssl
+x.4.- Ingrear a https://puphpet.com y presionar "Get started righ away. It´s free"
+x.5.- Seleccionar:
+x.5.1.- Seleccionar desarrollo para local host: Deploy to Local Host
+x.5.1.- Selecconar herramienta para crear virtualización (Provider): VirtualBox
+x.5.1.- Seleccionar la distribución: Para este caso seleccionamos: CentosOS 6 x64
+x.5.1.- Confiruar IP local para nuestro equipo: 192.168.56.151
+x.5.1.- Ingresar el HOstName que es el domineo que va a apuntar a nuestra dir ip: localwordpress1
+x.5.1.- Definir la ruta de la que va a tirar nuestra máquina virtual en Folder source: c\dev
+x.5.1.- Definir el Folder Target que es el target donde busca los html para funcionr: \var\www
+x.5.1.- En system package podemos añadir paquetes adicionales: vim
+x.5.1.- En servidor web quitamos Nginx seleccionamos apache y añadimos configuración del virtual host
+x.5.1.- En Server Name: wordpress1.dev
+x.5.1.- En Server Aliases: www.wordpress1.dev
+x.5.1.- En Doocument Root definimos donde queremos alojar nuestros archivos: /var/www
+x.5.1.- En puerto: 80
+x.5.1.- el SSL no habilitamos en este caso
+x.5.1.- en Directory Block el path dejar en /var/www
+x.5.1.- PHP
+x.5.1.- Seleccionar Install PHP
+x.5.1.- Seleccionar instal composer (si se va a trabajar con laravel)
+x.5.1.- Seleccionar enable xdebug
+x.5.1.- MySql
+x.5.1.- Seleccionar Install MySql
+x.5.1.- Seleccionar version de MySql
+x.5.1.- Poner el Root Password: 123
+x.5.1.- Poner el Username: wordpress
+x.5.1.- Poner nombre base de datos: wordpress
+x.5.1.- Crear archivo
+x.5.1.- ir a Create archive y presionar Download your custom server conf y guardar el archivo en Descargas.
+x.5.1.- Descomprimir archivo y ponerlos en carpeta wordpress (NO en carpeta www)
+x.5.1.- Tenemos archivo VagrantFile, archivo gitAttibutes (para sistema control de versiones), archivo config.yaml 
+x.5.1.- Abrir archivo config.yaml . en este está definido TODOS los detalles definidos en el configurador online.
+x.5.1.- Levantar máquina 
+x.5.1.- en consola DOS ir a c:\dev\wordpress1 y dar vagrant up (Primera vez es necesario conexiion a internet ya que va a vajar imagen del SO)
+x.5.1.- Edicion archivo HOST: c:\windows\system32\drivers\etc. (Para editarlo llevarlo a escritorio, y abrirlo)
+x.5.1.- Agregar al final: 192.168.56.151 wordpress1.dev #(Server Name). Este archivo resuelve dir ip en nombres
+x.5.1.- Verificar que todo fue bien
+x.5.1.- Ir a www y crear archivo index.html
+x.5.1.- Poner en el browser: wordpress1.dev
+x.5.1.- 
+x.5.1.- 
+x.5.1.- Error de actualizacion en Centos:
+x.5.1.- cd /etc/yum.repos.d/CentOS-SCL.repo
+x.5.1.- comentar linea: baseurl=http://mirror.centos.org/centos/$releaserver/SCL/$basearch/
+x.5.1.- Agregar linea: baseurl= http://mirror.centos.org/centos/6/sclo/x86_64/sclo/
+x.5.1.- levantar nuevamente máquina.
+x.5.1.- Buscar: grep -lir "usemos linux" "/media/win/cosas"
+yum --enablerepo=epel install httpd
+yum --enablerepo=epel install vim
+https://www.server-world.info/en/note?os=CentOS_6&p=httpd
+
+PHP
+yum --enablerepo=epel install php php-mysql php-pdo php-gd php-soap php-xmlrpc php-xml php-cli php-mbstring php-pear mod_ssl[/code][code]
+service httpd restart 
+
+
+yum -y groupinstall x11 basic-desktop general-desktop
+yum groupinstall "Desktop" "Desktop Platform" "X Window System" "Fonts" (http://www.comoinstalarlinux.com/como-instalar-gnome-en-un-centos-6-minimal/)
+
+error: 
+`ssh` executable not found in any directories in the %PATH% variable. Is an
+SSH client installed? Try installing Cygwin, MinGW or Git, all of which
+contain an SSH client. Or use your favorite SSH client with the following
+authentication information shown below:
+
+Host: 127.0.0.1
+Port: 2222
+Username: vagrant
+Private key: C:/Projects/.vagrant/machines/default/virtualbox/private_key
+
+(http://blog.keithkim.com/2013/12/ssh-problem-using-vagrant-on-windows.html)
+
+set PATH=%PATH%;C:\Program Files (x86)\PuTTY  (http://blog.keithkim.com/2013/12/ssh-problem-using-vagrant-on-windows.html)
+set PATH=%PATH%;C:\Program Files (x86)\Git\bin
+set PATH=%PATH%;C:\Program Files\Git\bin
+
+ssh-keygen -t rsa -C "bgva2005@yahoo.com"
+PARA HACERLO CON pUPHPET 7:14
+https://www.youtube.com/watch?v=l6BF9BTIzI4
+
+INgresar con: vagrant ssh
+
+(https://www.youtube.com/watch?v=vyTTq7lIbC4)
+vagrant  box add Laravel/homestead
+clonar directorio de homestead: git clone  git clone https://github.com/laravel/homestead.git HomesteadDemo
+
+en_US.UTF-8
+
+
+laravel
+
+composer create-project laravel/laravel laravel5p2 "5.2.*"
+http://www.desarrolloweb.com/manuales/manual-laravel-5.html
+http://www.desarrolloweb.com/articulos/videotutorial-instalar-homestead-laravel-windows.html
+
+
+apache a nginx
+   http://winginx.com/htaccess
+   
+Mantener varios proyectos con Homestead - Desarrolloweb.com
+http://www.desarrolloweb.com/articulos/mantener-proyectos-homestead.html
+
+ngix no pasa parametros:
+http://serverfault.com/questions/448982/how-to-pass-custom-parameters-to-php-from-nginx
+
+Using $_GET['_url'] as source of URIs:
+https://docs.phalconphp.com/uk/latest/reference/nginx.html
+
+reiniciar nginx - http://stackoverflow.com/questions/18587638/how-do-i-restart-nginx-only-after-the-config-test-was-successful-on-ubuntu
+
+When I restart the nginx service in command line on an ubuntu server, the service crashes when a nginx config file has errors. On a multi-site server this puts down all the sites, even the ones without config errors.
+
+To prevent this, I run the nginx config test first:
+
+nginx -t
+
+after the test ran successful, I can restart the service
+
+/etc/init.d/nginx restart
+
+or only reload the nignx site configs without a restart
+
+nginx -s reload
+
+PREGUNTA
+
+http://serverfault.com/questions/803423/nginx-php-7-get-params-homestead
+find 
+
+
+Visual Studio:
+
+https://www.tutorialspoint.com/mvc_framework/mvc_framework_first_application.htm
+
+https://docs.asp.net/en/latest/tutorials/first-mvc-app/adding-controller.html
+
+https://www.youtube.com/watch?v=E7Voso411Vs    Step-by-step ASP.NET MVC Tutorial for Beginners
+https://www.udemy.com/the-complete-aspnet-mvc-5-course/learn/v4/t/lecture/4924156
+Codigo:
+	http://github.com/mosh-hamedani
+
+C:\Program Files (x86)\IIS Express>iisexpress /path:C:\dev\PuntoNet\WebApplication3\WebApplication3\  /port:9090  /trace:errorq
+
+iisexpress /path:C:\dev\PuntoNet\Vidly\Vidly\  /port:9091  /trace:errorq
+iisexpress /path:C:\dev\PuntoNet\MuchosMuchos_02\MuchosMuchos_02\  /port:9090  /trace:errorq
+iisexpress /path:C:\dev\PuntoNet\MuchosMuchosEscuela\MuchosMuchosEscuela\  /port:9090  /trace:errorq
+iisexpress /path:C:\dev\PuntoNet\crud-basico\Web\  /port:9090  /trace:errorq
+
+MUCHOS A MUCHOS
+	http://www.eltavo.net/2014/03/entityframework-configurando-una.html
+	https://www.youtube.com/watch?v=ealdzjRx-Jo
+
+Using SSDT (SQL Server Data Tools) to Manage Database Lifecycle
+https://www.youtube.com/watch?v=e6Z_MpXXnHU
+
+LINQ Ejemplos:
+http://speakingin.net/2007/05/20/usando-linq-to-sql-1%C2%AA-parte/
+TutorialLinq: Crear Diagrama: https://www.youtube.com/watch?v=YpamR1RGMCg
+TutorialLinq: MVC ASP LinQ: https://www.youtube.com/watch?v=7jeQL6xHp-s
+
+EntityFramework
+	A MySql
+		https://juank.io/entity-framework-mysql-sqlserver-csharp/
+		
+		
+InstallPoint
+https://msdn.microsoft.com/en-us/mt186501.aspx
+	c:\dev\AdministrativeInstallPoint>SSDTSetup.exe /layout C:\dev\AdministrativeInstallPoint\Instalado
+	
+POCO
+	http://icomparable.blogspot.com/2010/09/datasets-o-pocos-plain-old-clr-object.html
+
+razor (Exelente)
+http://www.tutorialsteacher.com/mvc/htmlhelper-validationmessagefor
+
+TextBox
+
+@Html.ActionList("Create New", "Create")---------------------------------<a href="/Student/Create">Create New</a>
+@Html.TextBox("StudentName", null, new { @class = "form-control" })------<input class="form-control"  id="StudentName" name="StudentName" type="text" value="" />
+@Html.TextBoxFor(m => m.StudentName, new { @class = "form-control" })----<input class="form-control"  id="StudentName" name="StudentName" type="text" value="Byron" />
+
+TextArea
+
+@Html.TextArea("Description", null, new { @class = "form-control" })-----<textarea class="form-control" id="Description" name="Description" rows="2" cols="20">This is value</textarea>
+@Html.TextAreaFor(m => m.Description, new { @class = "form-control" })---<textarea class="form-control" id="Description" name="Description" rows="2" cols="20"></textarea>
+
+CheckBox
+
+@Html.CheckBox("isNewlyEnrolled", true) -----------------------------------<input checked="checked" id="isNewlyEnrolled" name="isNewlyEnrolled" type="checkbox" value="true" />
+@Html.CheckBoxFor(m => m.isNewlyEnrolled)--- <input data-val="true" data-val-required="The isNewlyEnrolled field is required." id="isNewlyEnrolled" name="isNewlyEnrolled" type="checkbox" value="true" />
+                                         ----<input name="isNewlyEnrolled" type="hidden" value="false" />
+
+RadioButton
+
+Male:   @Html.RadioButton("Gender","Male", true)  Male: <input checked="checked" id="Gender" name="Gender" type="radio" value="Male" />
+Female: @Html.RadioButton("Gender","Female")      Female: <input id="Gender" name="Gender" type="radio" value="Female" />
+
+
+@Html.RadioButtonFor(m => m.Gender,"Male")        <input checked="checked" id="Gender" name="Gender" type="radio" value="Male" />
+@Html.RadioButtonFor(m => m.Gender,"Female")      <input id="Gender" name="Gender" type="radio" value="Female" />
+
+
+DropDownList
+
+@Html.DropDownList("StudentGender", new SelectList(Enum.GetValues(typeof(Gender))),"Select Gender",new { @class = "form-control" })
+
+    <select class="form-control" id="StudentGender" name="StudentGender"><option>Select Gender</option> <option>Male</option> <option>Female</option> </select>
+
+@Html.DropDownListFor(m => m.StudentGender, new SelectList(Enum.GetValues(typeof(Gender))), "Select Gender")
+    <select class="form-control" id="StudentGender" name="StudentGender"><option>Select Gender</option> <option>Male</option> <option>Female</option> </select>
+
+Hidden field
+
+@Html.Hidden("StudentId") <input id="StudentId" name="StudentId" type="hidden" value="1" />
+@Html.HiddenFor(m => m.StudentId)
+   <input data-val="true" data-val-number="The field StudentId must be a number." data-val-required="The StudentId field is required." id="StudentId" name="StudentId" type="hidden" value="1" />
+
+
+Html.Password()
+
+@Html.Password("OnlinePassword")
+   <input id="OnlinePassword" name="OnlinePassword" type="password" value="" />
+   
+@Html.PasswordFor(m => m.Password)
+   <input id="Password" name="Password" type="password" value="mypassword" />
+
+Display()
+
+@Html.Display("StudentName")-----"Steve"
+@Html.DisplayFor(m => m.StudentName)----" Steve  "
+
+Label
+
+@Html.Label("StudentName")----<label for="StudentName">Name</label>
+
+@Html.Label("StudentName","Student-Name")----<label for="StudentName">Student-Name</label>
+@Html.LabelFor(m => m.StudentName)------<label for="StudentName">Name</label>
+
+
+Editor (Genera basado en el tipo de dato)
+
+
+
+DATA BINDING
+
+HTTPGET: Request.QueryString
+HTTPOST: Request
+
+
+
+
+
+
+
+
+A TENER EN CUENTA:
+FORMCOLLECTION: trae todos los valores de la forma
+
+
+
+Calendario:
+	https://www.youtube.com/watch?v=xhnKKEpZDeQ
+	
+	
+	
+	
+	http://anexsoft.com/p/82/asp-net-mvc-insertando-actualizando-con-relaciones-de-mucho-a-mucho
+	http://anexsoft.com/p/82/asp-net-mvc-insertando-actualizando-con-relaciones-de-mucho-a-mucho
+	https://www.youtube.com/watch?v=ealdzjRx-Jo
+	http://maromasdigitales.net/2011/03/desarrollando-con-codigo-primero-en-entity-framework-4/
+	http://stackoverflow.com/questions/13884293/using-a-html-select-box-with-razor
+	www.isawnavarro.com/entityframework-y-relaciones-muchos-a-muchos/
+	http://es.stackoverflow.com/questions/5836/como-puedo-realizar-un-update-en-una-relaci%C3%B3n-muchos-a-muchos-entityframework-6
+	https://www.youtube.com/watch?v=-xL5OxDCYsE
+	http://www.eltavo.net/2014/03/entityframework-configurando-una.html
+	http://panicoenlaxbox.blogspot.com/2013/06/relaciones-en-code-first.html
+	
+
+
+CAIDA DEL SISTEMA:
+	http://answers.microsoft.com/en-us/windows/forum/windows_10-update/stop-code-system-service-exception-what-failed/afc14376-bde1-4326-b98f-eecbc83c84d2?auth=1
+	Para crear el Creating a kernel dump when a Bluescreen (BSOD) occurred
+		https://www.virtualbox.org/wiki/Core_dump
+https://www.virtualbox.org/manual/ch12.html
+
+VBox.log
+
+ACPI\VEN_HPQ&DEV_0004
+
+ACPI\HPQ0004
+
+*HPQ0004
+
+**************************
+**************************
+Curso: 4/4
+0.- Ultimate Guide - How to Deploy a Laravel App (Introduction)
+	https://www.youtube.com/watch?v=5Y4STYfvpk4
+1.- Understanding Hosting Options and Setting up our VPS to Deploy Laravel App
+	https://www.youtube.com/watch?v=gD53Qz3vSrU
+2.- Setting Up LEMP Stack (Ngnix and Ubuntu 16) on VPS to Deploy Laravel App
+	https://www.youtube.com/watch?v=Jn-pVupm1Jc
+3.- Server Side Git Installation for Deploying our Laravel App
+	https://www.youtube.com/watch?v=NFsIuTFd6bA
+	
+4.- Configuring Laravel on our Server for Deploying a Laravel 5 App
+	https://www.youtube.com/watch?v=WNNHfl6vXQU
+http://devmarketer.io/learn/deploy-laravel-5-app-lemp-stack-ubuntu-nginx/
+
+**************************
+**************************
+Tipos de servidores:
+	VPS: Virtual Private Servers
+		Hostgator.com
+		
+	Platform-as-a-service
+	pass product
+	Dedicated servers
+	
+	PHP-FPM cgi

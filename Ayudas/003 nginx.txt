@@ -1,0 +1,64 @@
+		1.7.4.- Actualizar "C:\Users\Byron\.Homestead\Homestead.yaml"
+			1.7.4.1.- authorize: /c/dev/Homestead/.ssh/llavehomestead.pub
+			1.7.4.2.- keys:- /dev/Homestead/.ssh/llavehomestead
+		1.7.5.- Carpetas del servidor virtual y mapeo a las carpetas locales
+			folders:
+				- map: /dev/Homestead/proyectos
+				to: /home/vagrant/Proyectos
+		1.7.6.- Configuración sitios a ser alvergados
+			sites:
+				- map: prueba_nginx.net
+				  to: /home/vagrant/Proyectos/prueba_nginx/public
+		1.7.7.- Configurar host (http://www.desarrolloweb.com/articulos/modificar-hosts-windows-linux-mac.html)
+		1.7.7.1.- Abrir como administrador archivo "host" que se encuentra en "C:\Windows\System32\drivers\etc"
+		1.7.7.2.- Insertar: 192.168.10.10 prueba_nginx.net
+
+
+
+
+
+
+6.- Problemas
+	6.1.- Sitio NO se levanta (http://davestewart.io/setup/configuring-sites-in-laravel-homestead/)
+		6.1.1.- ejecutar: "vagrant up --provision"
+		6.1.2.- Verificar en "/etc/nginx/sites-available/" se crea el archivo con nombre del sitio.
+
+
+
+
+
+
+
+
+apache a nginx
+   http://winginx.com/htaccess
+   
+Mantener varios proyectos con Homestead - Desarrolloweb.com
+http://www.desarrolloweb.com/articulos/mantener-proyectos-homestead.html
+
+ngix no pasa parametros:
+http://serverfault.com/questions/448982/how-to-pass-custom-parameters-to-php-from-nginx
+
+Using $_GET['_url'] as source of URIs:
+https://docs.phalconphp.com/uk/latest/reference/nginx.html
+
+reiniciar nginx - http://stackoverflow.com/questions/18587638/how-do-i-restart-nginx-only-after-the-config-test-was-successful-on-ubuntu
+
+When I restart the nginx service in command line on an ubuntu server, the service crashes when a nginx config file has errors. On a multi-site server this puts down all the sites, even the ones without config errors.
+
+To prevent this, I run the nginx config test first:
+
+nginx -t
+
+after the test ran successful, I can restart the service
+
+/etc/init.d/nginx restart
+
+or only reload the nignx site configs without a restart
+
+nginx -s reload
+
+PREGUNTA
+
+http://serverfault.com/questions/803423/nginx-php-7-get-params-homestead
+find 

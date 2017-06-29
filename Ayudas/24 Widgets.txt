@@ -1,0 +1,62 @@
+widget (pequeños programs a las vistas)
+
+1.- Seteo de layouts desde controladores
+	1.1.- en View.php: 	
+		1.1.1.- private $_template
+		1.1.2.- En constructor: $this->_template = DEFAULT_LAYOUT;
+		1.1.3.- Crear public function setTemplate($template)
+	1.2.- En constructor del xxxxControlador.php llamar al template: $this->_view->setTemplate('twb-R');
+2.- Estructura de carpetas
+	2.1.- Crear estructura:
+	Widget
+		Model
+			menu.php
+		View
+			sidebar.php
+			top.php
+		menu.php (Tiene el mismo nombre del widget)
+	2.2.- Crear archivo: plantilla_MVC\public\views\layout\twb\configs.php
+                function get_layout_positions()
+                {
+                	//aca vamos colocando las posiciones
+                	return array(
+                		'header' => array(),
+                		'top' => array(),
+                		'sidebar' => array(),
+                		'footer' => array()
+                	);
+                }
+	2.3.- Crear archivo: plantilla_MVC\public\application\Widget.php
+3.- Contenido archivo Widget.php
+	3.1.- Crear clase abstract Widget (para que no pueda ser instanciada)
+	3.2.- Crear métodos
+		3.2.1.- protected function loadModel($model)
+			Carga modelos para los widgets
+		3.2.2.- protected function render($view, $data = array(), $ext = 'phtml')
+			Método de la vista del widget q retorna el html de la vista.
+4.- Contenido archivo Widget/menu.php
+	4.1.- Clase
+		class menuWidget extends Widget
+	4.2.- Variables:
+		private $modelo;
+	4.3.- Métodos: 
+		public function getMenu($menu, $view, $inverse = null)
+		public function getConfig($menu)
+5.- Contenido archivo View/sidebar.html
+6.- En View.php, crear método que llame a widget
+	6.1.- Nombre: public function widget($widget, $method, $options = array())
+		Este método trabaja como un bootstrap para los widgets.
+	6.2.- Llamada desde: 
+		Controller/class indexController extends Controller 
+		Función: "public function index()" 
+		Forma: 
+			$this->_view->assign('widget', '');  //para no poner menu
+7.- Creación del modelo de los widgets: En archivo: Widget/Model/menu.php
+	7.1.- Clase
+		class menuModelWidget extends Model
+	7.2.- Variables:
+		
+	7.3.- Métodos: 
+		public function getMenu($menu)
+	7.4.- Se lo llama desde Widget/menu.php
+

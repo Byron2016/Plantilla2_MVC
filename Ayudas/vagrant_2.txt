@@ -1,0 +1,368 @@
+1.- Software previo a tener instalado:
+	1.1.- Habilitar la virtualización por hardware (VT-x)
+	1.6.- GIT 
+		(tiene soporte nativo para la generación de llaves SSH las cuales vamos a necesitar para conectarnos a nuestro servidor virtual)
+	1.3.- Composer  --  https://styde.net/instalacion-de-composer-y-laravel-en-windows/
+		(Composer es una herramienta para gestionar las dependencias en PHP)
+	1.1.- Virtual Box "https://www.virtualbox.org/"
+	1.2.- Vagrant "http://www.vagrantup.com/"
+	
+	1.4.- SSH
+
+	1.7.- Bajar archivo de Box que queremos instalar 
+2.- Crear Descriptor
+	2.1.-Crear directorio "C:\dev\Vagrant_MaquinaInicial"
+	2.2.- Ingresar a GIT y ejecutar en carpeta "C:\dev\Vagrant_MaquinaInicial" la instrucción "vagrant init" --> crea el archivo "Vagrantfile"
+	2.3.- Verificar existencia de archivo "Vagrantfile" en el path: "C:\dev\Vagrant_MaquinaInicial"
+3.- Crear Box
+	3.1 Forma 1: Cargando desde URL
+		3.1.1.- Ejecutar comando: vagrant box add precise64 http://files.vagrantup.com/precise64.box
+		3.1.2.- Verificar en directorio "C:\dev\Vagrant_MaquinaInicial" la creación de carpeta "C:\dev\Vagrant_MaquinaInicial\.vagrant"
+		3.1.3.- Verificar se crea el directorio: "C:\Users\Byron\.vagrant.d\boxes\precise64"
+	3.2 Forma 2: Bajando BOX
+		3.2.1.- Bajar archivo que queremos instalar. Ir a http://files.vagrantup.com/precise64.box y guardar en disco duro
+		3.2.2.- Listado de Boxes disponibles: https://github.com/mitchellh/vagrant/wiki/Available-Vagrant-Boxes
+		3.2.3.- Ejecutar comando: vagrant box add precise64 Path al archivo
+		3.2.4.- Verificar en directorio "C:\dev\Vagrant_MaquinaInicial" la creación de carpeta "C:\dev\Vagrant_MaquinaInicial\.vagrant"
+		3.1.5.- Verificar se crea el directorio: "C:\Users\Byron\.vagrant.d\boxes\precise64"
+			
+		
+4.- Usando el Box
+	4.1.- Editar archivo "C:\dev\Vagrant_MaquinaInicial\Vagrantfile" y modificar línea: config.vm.box = "base"  -->  config.vm.box = "precise64"
+
+5.- Levantando y entrando en nuestra máquina virtual
+	5.1.- Ejecutar comando "vagrant up" --> se crea dentro de directorio "C:\dev\Vagrant_MaquinaInicial\Vagrantfile\.vagrant" carpeta "machines"
+		default: Mounting shared folders...
+		default: /vagrant => C:/dev/Vagrant_MaquinaInicial
+		
+6.- Problemas
+	6.1.- Sitio NO se levanta (http://davestewart.io/setup/configuring-sites-in-laravel-homestead/)
+		6.1.1.- ejecutar: "vagrant up --provision"
+		6.1.2.- Verificar en "/etc/nginx/sites-available/" se crea el archivo con nombre del sitio.
+		
+************************************************************************************************
+************************************************************************************************
+	INSTALAR HOMESTEAD
+	https://www.youtube.com/watch?v=k9xQBKzpOjk
+	http://www.desarrolloweb.com/articulos/instalar-homestead-para-laravel5.html
+	
+************************************************************************************************
+************************************************************************************************
+1.- Elementos:
+	1.1.- Instalar VirtualBox (Para crear máquinas virtuales)
+	1.2.- Instalar Vagrant (para crear entornos de desarrollo de manera sensilla)
+	1.3.- Instalar GIT (Para descargar repositorio y guardar en máquina virtual / Para poder realizar comandos necesarios de instalación)
+	1.4.- Ingresar a Git Bash
+	1.5.- Instalar Box de Homestead basada en vagrant: 
+		1.5.1.- Ingresar a GIT BASH y desde cualquier carpeta ejecutar: "vagrant box add laravel/homestead"
+		1.5.2.- Validar que se crea en directorio "C:\Users\Byron\.vagrant.d\boxes" carpeta "laravel-VAGRANTSLASH-homestead"
+	1.6.- Instalar Homestead
+		1.6.1.- En la carpeta de trabajo, cloar Homestead con el siguiente comando: git clone https://github.com/laravel/homestead.git Homestead
+		1.6.2.- Crear el archivo de configuración "Homestead.yaml" ejecutando: "bash init.sh"
+			1.6.2.1.- Verificar se crea carpeta .Homestead en directorio "C:\Users\Byron"
+	1.7.- Crear llave de SSH
+		1.7.1.- Para Mac o Linux: ssh-keygen -t rsa -C "byron@homestead"
+		1.7.2.- Desde Windows mismo comando anterior pero con Git Bash.
+		1.7.3.- Ruta clave:
+			1.7.3.1 Presionar Enter (x default) --> Verificar se crea clave: /c/Users/Byron/.ssh/id_rsa
+			1.7.3.2 Dar ruta absoluta (/c/dev/Homestead/.ssh/llavehomestead) --> Verificar se crea clave: /c/dev/Homestead/.ssh/llavehomestead/llavehomestead
+		1.7.4.- Actualizar "C:\Users\Byron\.Homestead\Homestead.yaml"
+			1.7.4.1.- authorize: /c/dev/Homestead/.ssh/llavehomestead.pub
+			1.7.4.2.- keys:- /dev/Homestead/.ssh/llavehomestead
+		1.7.5.- Carpetas del servidor virtual y mapeo a las carpetas locales
+			folders:
+				- map: /dev/Homestead/proyectos
+				to: /home/vagrant/Proyectos
+		1.7.6.- Configuración sitios a ser alvergados
+			sites:
+				- map: prueba_nginx.net
+				  to: /home/vagrant/Proyectos/prueba_nginx/public
+		1.7.7.- Configurar host (http://www.desarrolloweb.com/articulos/modificar-hosts-windows-linux-mac.html)
+		1.7.7.1.- Abrir como administrador archivo "host" que se encuentra en "C:\Windows\System32\drivers\etc"
+		1.7.7.2.- Insertar: 192.168.10.10 prueba_nginx.net
+	1.8.- Larzar la máquina virtual con: "vagrant up"
+		1.8.0.- Ponerse en el directorio:  cd /c/dev/Homestead
+			1.8.0.1.- Ejecutar vagrant up
+		1.8.1.- Verificar se crea directorio "settler_default_1467045720829_25020_1476570205474_85419" en carpeta "C:\Users\Byron\VirtualBox VMs"
+		1.8.1.- Verificar se crea directorio "homestead-7" en carpeta "C:\Users\Byron\VirtualBox VMs"
+	1.9.- Acceder a página web: 
+		1.9.1.- Llamar a: "http://192.168.10.10/" NO debería dar error
+		1.9.1.- Llamar a: "http://prueba_nginx.net/"
+	
+		
+	
+************************************************************************************************
+************************************************************************************************
+	GIT
+	https://www.youtube.com/watch?v=zH3I1DZNovk&list=PL9xYXqvLX2kMUrXTvDY6GI2hgacfy0rId&index=1
+	Nota: 
+		GIT:    Es un sistema de control de versiones
+		GitHub: Es una plataforma en donde podemos guardar nuestros proyectos y usar GIT para administrar.
+************************************************************************************************
+************************************************************************************************
+1.- Configuración
+	1.1.- Crear usuario: git config --global user.name "byron"
+	1.2.- Verificar usuario: git config --global user.name
+	1.3.- Cambiar nombre: git config --global user.name "Nuevo nombre"
+	1.4.- Configurar correo: git config --global user.email "bgva2005@yahoo.com"
+	1.5.- Verificar correo: git config --global user.email
+	1.6.- Para configurar colores: git config --global color.ui true
+	1.7.- Listado de nuestras configuraciones: git config --global --list
+	1.8.- Eliminar algo: "git config --unset --local user.name" -- "git config --unset --global user.name"
+	1.9.- Problemas de subida: Abrir Git GUI/Edit/Opciones y agregar correo
+2.- Primer Proyecto
+	2.1.- Ir a carpeta de proyecto y poner comando "git init" para marcar inicio de proyecto (empieza a monitorear)
+	2.2.- para saber status de nuestro proyecto: "git status"
+	2.3.- Para agregar archivos
+		2.3.1.- colocar comando "git add index.html"
+		2.3.2.- Para agregar TODO: "git add -A"
+		2.3.3.- Guardar con mensaje para identificarlos: git commit -m "Mensaje"
+		2.3.4.- PASOS: 1.- git add -A 2.- git commit -m "Mensaje"
+		2.3.5.- Listados de commits: git log
+		2.3.6.- Para viajar en el timepo
+			2.3.6.1.- Poner "git log"
+			2.3.6.2.- Copiar código SHA al que queremos ir
+			2.3.6.3.- Poner "git checkout CODIGO_SHA"
+			2.3.6.4.- Ir a última versión: "git checkout master"
+		2.3.7.- Para quitar errores o commits: "git reset"
+			2.3.7.1.- Sin tocar código: "git reset --soft"
+				2.3.7.1.1.- Ejemplo: git reset --soft CODIGO_SHA
+			2.3.7.2.- Sin tocar stagin/working area: "git reset --mixed
+			2.3.7.3.- Borrar TODO: "git reset --hard"
+				2.3.7.3.1.- Ejemplo: git reset --hard CODIGO_SHA  (Nos retorna al sha q pongamos, borrando TODO el código)
+		2.3.8.- Para AYUDA: "git help" "git help status"
+		2.3.9.- Renombrar un commit
+			2.3.9.1.- Renombrar: "git commit -amend -m "TextoNuevo"
+			2.3.9.2.- Subir a GitHub: "git push origin master -f"
+		2.3.10.- SALIR: q
+3.- Ramas y Fusiones
+	3.1.- Concepto Head: Commit donde nos encontramos ahora.
+	3.2.- Ramas: Línea de tiempo en nuetro proyecto, que nos sierve para arreglar errores, experimentar, hacer grandes cambios, etc
+		3.2.1.- Rama Master: Se genera por defout al hacere "git init"
+		3.2.2.- Visualizar ramas: "git branch" la que despliega coloreada es en la que estamos
+		3.2.3.- Crear rama: "git branch nombreNuevaRama"
+		3.2.4.- Moverse a otra rama: "git checkout nombreNuevaRama" (todo cambio se hará en esta rama)
+		3.2.5.- BORRAR ramas: "git branch -D nombreNuevaRama"
+		3.2.6.- Mostrar ramas ocultas: "git branch -a"
+	3.3.- Fusiones: Pasar cambios de un branch a otro
+		3.3.1.- Ir a rama destino: "git checkout nombreRamaDestino"
+		3.3.2.- Ir a rama destino: "git merge nombreRamaASerAbsorvida"
+		3.3.3.- Tipos de fusiones: Fast-Forward y Manual Merge
+			3.3.3.1.- Fast-Forward: Sólo hace fución y no pregunta nada.
+			3.3.3.2.- Manual Merge: Pasa por nosotros y nos pide hacer alguna actividad.
+	3.4.- Crear y Moverse a una rama : "git checkout -b nombreNuevaRama"
+	
+4.- GitHub
+	4.0.- Iniciar 
+		4.0.1.-  cd /c/dev/Homestead
+		4.0.1.-  vagrant up
+		4.0.1.-  cd /c/dev/Homestead/proyectos/plantilla_MVC
+		4.0.1.-  git remote -v
+		4.0.1.-  git commit -m "Inicio video 16 16 PHP:POO+MVC - Crear un framework básico(Listas de Acceso(ACL) parte 2/3)"
+		4.0.1.-  git push origin master
+		4.0.1.-  git add -A
+		4.0.1.-  git tag -a vx.0 -m "Fin Video x"
+		4.0.1.-  git push origin vx.0
+		4.0.1.-  
+	
+	4.1.- Crear en GitHub cuenta (https://github.com/login: Byron2016/NomBarr2016)
+	4.2.- Clonar un proyecto: "git clone" (Toma proyecto de gitHub y lo pasa a nuestra computadora)
+		4.2.1.- Dar copiar en GigHub
+		4.2.2.- en Git: "git clone COPIADO"
+	4.3.- Subir proyecto a GitHub	
+		4.3.1.- Repositorios Remotos: los que están en GitHub / Repositorio Local: En nuestra computadora
+		4.3.2.- Crear Repositorio en GitHub
+			4.3.2.1.- Puede ser cualquier nombre no necesariamente el del repositorio locales
+		4.3.3.- Vincular Repositorios: "git "
+				4.3.1.- Copiar ruta
+				4.3.2.- En Git poner: "git remote add origin RutaCopiada"
+				4.3.3.- verificar : "git remote -v"
+				4.3.4.- Desconectar repositorio: "git remote remove origin"
+					4.3.4.1.- Conectarce: "git remote add origin RutaCopiada"
+				4.3.5.- Pasar de Git a GitHub: "git push origin master"  -- (master es la rama a subir)
+				4.3.6.- PASOS
+					2.3.6.1.- Para agregar TODO: "git add -A"
+					2.3.6.2.- Guardar con mensaje para identificarlos: git commit -m "Mensaje"
+					2.3.6.3.- Subir: "git push origin master" -- master es la rama
+	4.4.- Utilidades
+		4.4.1.- Issues: Cosas a mejorar en nuestros proyectos
+		4.4.2.- Milestones: Grupo de issues para un período de tiempo
+		4.4.3.- Labes: Manera de organizar diferentes tipos de problemas.
+		4.4.4.- Assignees: Asignar a alguien
+		4.4.5.- Tags: Puntos específicos en historia de proyectos (Versionamientos) (a commit se le dice qué versión es)
+			4.4.5.1.- Crear tags ultimo commit: "git tag -a v1.0 -m "Mensaje""
+			4.4.5.2.- Crear tags a otro commit: "git tag -a v1.0 -m "Mensaje" Codigo_SHA"
+			4.4.5.3.- Subir tags a GitHub: git push origin v1.0
+			4.4.5.4.- Subida masiva: "git push origin --tags"
+		4.4.6.- Workflows (TRABAJO COLABORATIVO):
+			4.4.6.1.- Proyectos propios: Lo ya visto
+			4.4.6.2.- Proyectos en EQUIPO: 
+				4.4.6.2.1.- Crear una nueva organización (Quien recive avisos, y agregar personas)
+				4.4.6.2.2.- Transferir repositorio a la organización
+				4.4.6.2.3.- Cargar cambios de equipo a nuestro local:
+					4.4.6.2.3.1.- Bajar cambios en repositorio remoto a origin/master: "git fetch origin"
+					4.4.6.2.3.1.- Copiar al master local: 
+						1.- Desconectarse si no se está en repositorio adecuado
+							1.1.- verificar repositorio q está conectado: "git remote -v"
+							1.2.- desconectarse del repositorio: "git remote remove origin" 
+							1.3.- verificar ya no está conectado: "git remote -v"
+							1.4.- conectarse a repositorio compartido: "git remote add origin LINK_COMPARTIDO"
+							1.5.- Verificar repositorio q está conectado: "git remote -v"
+						2.- Cambiarse a la rama destino: "git checkout master" 
+						3.- Copiar a rama destino lo que está en rama origin/master: "git fetch origin"
+						4.- Pasar cambios de rama oculta a rama destino: "git merge origin/master" 
+						5.- Verificar cambios: "git log"
+						6.- Guardar cambios q se tengan locales: "git add -A"
+						7.- Crear commit: "git commit -m "mensaje""
+						8.- Subir commits que se tenga locales: "git push origin master"
+						9.- En caso de haber conflictos son marcados con "<<<<<<<<" y hay que hacer cambio MANUAL
+							9.1.- <<<<<<<<< HEAD marca donde está nuestro cambio
+							9.2.- >>>>>>>>> origin/master lo que está en la rama oculta
+							9.3.- borrar el cambio q no queremos y las etiquetas de 9.1 y 9.2
+							9.4.- Verificar lo cambiado: "git status"
+							9.5.- Guardar cambios q se tengan locales: "git add -A"
+							9.6.- Crear commit: "git commit -m "se arreglan conflictos queda el cambio segundo""
+							9.7.- Subir a gitHub: "git push  master"
+			4.4.6.3.- Proyectos con TERCEROS: (video 7 min 25)
+				4.4.6.3.1.- Ir al repositorio y presionar FORK
+				4.4.6.3.2.- Verificar ramas ocultas	
+					4.4.6.3.2.1.- origin/master (si tenemos colaborativo local)
+					4.4.6.3.2.2.- upstream/master (al original)  (ojo: upstream puede cambiar, hay que verificar en la organización)
+				4.4.6.3.3.- Se hace Add y el commit de los cambios realizados
+				4.4.6.3.4.- Se suben los cambios con push (Esto sube al repositorio del perfil ya que se hizo FORK)
+				4.4.6.3.5.- Comunicar estos cambios a la organización: Presionar botón "New pull request" -- "create pull request"
+				
+				
+							
+
+	4.5.- Pages: Generación de sitios web a partir de nuestros proyectos
+		4.5.1.- Crear sitio web para nuestro usuario u organización
+			4.5.1.1.- Crear un repositorio con nombre: usuario.github.io
+			4.5.1.2.- Clonar repositiro para pasarlo localmente: "get clone url"
+			4.5.1.3.- Subir cambios con "git push"
+			4.5.1.4.- Validar cambios llamando al domineo: usuario.github.io
+		4.5.2.- Sitios web para nuestros proyectos
+			4.5.2.1.- Crear repositorio
+			4.5.2.2.- Clonarlo localmente
+			4.5.2.3.- Crear rama nueva: "git branch gh-pages"
+			4.5.2.4.- Subir los cambios a esta rama nueva: "git push origin gh-pages"
+			4.5.2.5.- Visualizar página: ir  "usuarios/repositorio"
+	4.6.- Deploymet con git: Commits de repositorio local va a gitHub y al servidor
+		4.6.1.- Llave SSH: sirve para conectarse a servidores sin necesidad poner cotraseña cada rato.
+			4.6.1.1.- Generación poner: "ssh-keygen"
+			4.6.1.2.- La id_rsa NADIE la debe ver es la llave privada.
+			4.6.1.3.- La id_rsa.pub la subimos a GIT a través de opcion "SSH Keys"
+			4.6.1.4.- Mandar cambios sin usar claves
+				4.6.1.4.1.- Conectarse a repositorio con ssh: "git remote add origin URL-SSH"
+				4.6.1.4.2.- Evitar archivos basura: 
+					1.- touch .gitignore
+					2.- Enumerar archivos que no queremos.
+						# Compiled source #
+						###################
+						*.com
+						*.class
+						*.dll
+						*.exe
+						*.o
+						*.so
+						*.sh
+						 
+						# Packages #
+						############
+						*.7z
+						*.dmg
+						*.gz
+						*.iso
+						*.jar
+						*.rar
+						*.tar
+						*.zip
+						 
+						# Logs and databases #
+						######################
+						*.log
+						*.sql
+						*.sqlite
+						 
+						# OS generated files #
+						######################
+						.DS_Store
+						.DS_Store?
+						._*
+						.Spotlight-V100
+						.Trashes
+						ehthumbs.db
+						Thumbs.db
+						
+				4.6.1.4.3.- Hacer el Add y el Commit
+				4.6.1.4.4.- Subir: "git push origin Rama"
+				4.6.1.4.5.- Poner llave pública en SERVIDOR
+					4.6.1.4.5.1.- Debe estar hospedad en un servidor que acepte SSH (clouddigitalocean si lo tiene)
+					4.6.1.4.5.2.- Subir el SSH en el servidor
+					4.6.1.4.5.3.- Conectarse: "ssh root@Domineo.com" (si no se tiene domineo, se usa la IP)
+					4.6.1.4.5.4.- Con la clave anterior ESTOY EN EL SERV REMOTO, IR A CARPETA CONTENEDORA
+					4.6.1.4.5.5.- Crear llave en el servidor y copiar la publica a github
+					4.6.1.4.5.6.- ir a GitHub/configuraciones/sshkeys y agregarla
+					4.6.1.4.5.7.- Escribir: "git pull origen RamaDestino"  (pull: fetch + merge  (solo usar si ya se sabe fetch y merge)
+					4.6.1.4.5.8.- Git también debe ser instalado en el SERVIDOR
+	4.7.- git Hooks: Mecanismos para activar scripts de acuerdo a cierta acción. (Existen 17)
+		4.7.1.- 
+5.- Visual Studio + Git (https://www.youtube.com/watch?v=egy2r6ReaeI)	
+	5.1.- Cuando se crea proyecto activar check "add to source control"
+	5.2.- Seleccionar el source control "git"
+	5.3.- En changes se puede poner los commits
+	
+		
+	
+*******************************************************************************************
+**********CONECTARSE MAQUINA VIRTUAL VIA PUTTY*********************************************
+**http://chrisbeaver.com/2014/07/access-laravel-homestead-server-putty-private-key-file/***
+*******************************************************************************************
+1.- Identificar dónde se encuentra nuestra clave pública:
+	1.1.- Posterior a ejecutar "vagrant up" para levantar la máquina virtual, ejecutar el comando "vagrant ssh-config" e identificar línea "IdentityFile"
+2.- Generar clave privada ppt.
+	2.1.- Abrir el programa "puTTYgen"
+	2.2.- Presionar botón "Load" en "load an existing private key file"
+	2.3.- Ir a la ruta que se indicó en el punto 1.1 y poner a mostar todos los archivos. Seleccionar el archivo identificado en 1.1
+	2.4.- Presionar el botón "Save private key"
+3.- Ejecutar programa "PuTTY"
+	3.1.- En host poner dirección ip: "192.168.10.10"
+	3.2.- Ir a opción: "Conection/SSH/Auth"
+	3.3.- En "Browse" seleccionar la clave privada creada en paso 2. y presionar "load"
+	3.4.- Usuario: Vagrant
+
+*******************************************************************************************
+**********DEBUG EN VAGRANT USANDO XDEBUG***************************************************
+*****
+*******************************************************************************************
+Hacer el debug en sublime text:
+http://tech.osteel.me/posts/2015/05/23/laravel-homestead-debug-an-api-with-xdebug-and-curl-in-sublime-text.html
+
+http://mattwatson.codes/debug-php-vagrant-using-xdebug-sublime-text/ (DEBUG PHP WITH VAGRANT USING XDEBUG AND SUBLIME TEXT)
+
+
+*******************************************************************************************
+**********INSERTAR CODIGO EN UNA PAGINA WEB************************************************
+*****https://www.adictosaltrabajo.com/tutoriales/syntaxhighlighter/
+*****https://code.google.com/archive/p/syntaxhighlighter/downloads
+*****https://highlightjs.org/
+*******************************************************************************************
+
+https://highlightjs.org/
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+

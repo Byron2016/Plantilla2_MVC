@@ -1,0 +1,360 @@
+https://www.youtube.com/watch?v=BO2lzbSNvy0&list=PLMVWdD5bcndrmfgQdYeZqTx-OP8SQilJK
+xDEBUG: http://thecancerus.com/debugging-php-using-xdebug-and-notepad-part-i/
+
+1.- 01 - PHP:POO+MVC - Crear un framework básico  (estructura básica y patrón MVC) ()
+	1.1.- MVC
+		1.1.1.- Explicación: Separar código en tres partes modelo, vista y controlador
+		1.1.2.- Modelo: vá la lógica del negocio, se gestiona acceso a datos, formato datos, CRUD. 
+		1.1.3.- Vista: Renderizar los datos traídos desde el modelo, interactúa con el usuario, acá va colocado todo lo del formato de los datos, estilos, archivos java script
+		1.1.4.- Controlador: Se encarga del flujo de la aplicación, buscar un modelo, a través de este buscar los datos, y renderizarlos a través de la vista. También responde peticiones de usaurio a través de la vista.
+			1.1.4.1.- Parámetros pasados son gestionados por lanzador (bootstrap) que llama al controlador/método y en base a esto sabe el modelo y vista a la cual llamar
+			1.1.4.2.- "Request" recive peticiones por el URL y la pasa a "bootstrap" y este llama al "xxxxControler" que está dentro de carpeta "controllers" y este xxxxControler hace petición de modelo y vista
+	1.2.- Revisar Validación nginx
+		1.1.- URL: http://plantilla_mvc.net/controlador/metodo/argumentos
+			1.- $_SERVER['REQUEST_URI'] Retorna: /controlador/metodo/argumentos
+		1.2 Notas
+			1.- Mi pregunta: http://serverfault.com/questions/803423/nginx-php-7-get-params-homestead
+				1.1.- Para que funcione en el archivo "/etc/nginx/sites-available/domineoALlamar" colocar: 
+						location / {
+							try_files $uri $uri/ /index.php?$query_string;
+							rewrite ^/(.*)$ /index.php?url=$1 last;
+						}
+				1.2.- Ejecutar: sudo /etc/init.d/nginx restart
+			2.- Using $_GET['_url'] as source of URIs: https://docs.phalconphp.com/uk/latest/reference/nginx.html
+			3.- reiniciar nginx - http://stackoverflow.com/questions/18587638/how-do-i-restart-nginx-only-after-the-config-test-was-successful-on-ubuntu
+	1.3.- Revisar correcta importación de archivos
+		1.3.1.- echo '<pre>'; print_r(get_required_files());
+		
+2.- 02 - PHP:POO+MVC - Crear un framework básico (request y bootstrap)	(https://www.youtube.com/watch?v=cQ0o-2aYT2Q&index=2&list=PLMVWdD5bcndrmfgQdYeZqTx-OP8SQilJK)
+3.- 03 - PHP:POO+MVC - Crear un framework básico (vistas y layout)
+	1.- Para que llame al css: (https://support.qualityunit.com/081573-Installation-with-NGINX-rewrite-rules)
+		location ~ \.css {
+                add_header Content-Type text/css;
+        }
+		location ~ \.js {
+                add_header Content-Type text/javascript;
+        }
+4.- 04 - PHP:POO+MVC - Crear un framework básico (modelos y librerías)
+	1.1.- Bajar mysql workbrench: https://www.oracle.com/index.html (bgva2005@yahoo.com / )
+	1.2.- CREATE SCHEMA `mvc` DEFAULT CHARACTER SET utf8 ;
+	1.3.- 16
+
+
+11.- Envío de correos
+	Descargar PHPMailer v5.1 (http://phpmailer.worxware.com/)  (https://github.com/PHPMailer/PHPMailer)
+	
+12 Paginacion
+	Bajar librería Crear un Paginador 2 (http://www.dlancedu.com/php.html)
+	
+	
+CREATE TABLE `mvc`.`posts` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `titulo` VARCHAR(150) CHARACTER SET 'utf8' NOT NULL,
+  `cuerpo` TEXT(200) CHARACTER SET 'utf8' NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 1','cuerpo 1');
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 2','cuerpo 2');
+SELECT `posts`.`id`, `posts`.`titulo`,`posts`.`cuerpo` FROM `mvc`.`posts`;
+
+
+CREATE TABLE `mvc`.`usuarios` (
+  `id` INT(4) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(100)  NOT NULL,
+  `usuario` VARCHAR(30)  NOT NULL,
+  `pass` VARCHAR(40) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `role` enum('admin','especial','usuario') ,
+  `estado` tinyint,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+INSERT INTO `mvc`.`usuarios` (`id`,`nombre`,`usuario`,`pass`,`email`,`role`,`estado`)
+VALUES (null,'nombre1','admin','81dc9bdb52d04dc20036dbd8313ed055','admin@amin.com','admin',1);
+
+81dc9bdb52d04dc20036dbd8313ed055
+
+f554564b63bfebedb20dab6c1e81132a44580761
+
+update `mvc`.`usuarios` set pass='f554564b63bfebedb20dab6c1e81132a44580761' where id=1
+
+alter table `mvc`.`usuarios` add fecha DATETIME not null;
+ALTER TABLE `mvc`.`usuarios` 
+ADD COLUMN `codigo` INT(10) UNSIGNED NULL AFTER `fecha`,
+ADD UNIQUE INDEX `codigo_UNIQUE` (`codigo` ASC);
+
+
+SELECT `usuarios`.`id`,
+    `usuarios`.`nombre`,
+    `usuarios`.`usuario`,
+    `usuarios`.`pass`,
+    `usuarios`.`email`,
+    `usuarios`.`role`,
+    `usuarios`.`estado`
+FROM `mvc`.`usuarios`;
+
+
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 11','cuerpo 1');
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 12','cuerpo 2');
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 1','cuerpo 1');
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 2','cuerpo 2');
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 1','cuerpo 1');
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 2','cuerpo 2');
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 1','cuerpo 1');
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 2','cuerpo 2');
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 1','cuerpo 1');
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 2','cuerpo 2');
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 1','cuerpo 1');
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 2','cuerpo 2');
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 1','cuerpo 1');
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 2','cuerpo 2');
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 1','cuerpo 1');
+INSERT INTO `mvc`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 2','cuerpo 2');
+
+CREATE TABLE `mvc`.`paises` (
+  `id` INT unsigned NOT NULL AUTO_INCREMENT,
+  `pais` VARCHAR(100)  NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+CREATE TABLE `mvc`.`ciudades` (
+  `id` INT unsigned NOT NULL AUTO_INCREMENT,
+  `ciudad` VARCHAR(100)  NOT NULL,
+  `pais` INT  NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+INSERT INTO `mvc`.`paises` (`id`, `pais`) VALUES (null, 'pais 1');
+INSERT INTO `mvc`.`paises` (`id`, `pais`) VALUES (null, 'pais 2');
+INSERT INTO `mvc`.`paises` (`id`, `pais`) VALUES (null, 'pais 3');
+INSERT INTO `mvc`.`paises` (`id`, `pais`) VALUES (null, 'pais 4');
+
+INSERT INTO `mvc`.`ciudades` (`id`, `ciudad`, `pais`) VALUES (null, 'ciudad 1',1);
+INSERT INTO `mvc`.`ciudades` (`id`, `ciudad`, `pais`) VALUES (null, 'ciudad 2',1);
+INSERT INTO `mvc`.`ciudades` (`id`, `ciudad`, `pais`) VALUES (null, 'ciudad 3',1);
+
+select * from `mvc`.`paises`;
+select * from `mvc`.`ciudades`;
+
+
+/*****************************************
+
+Hasta antes video 15.
+/*****************************************
+
+CREATE TABLE `ciudades` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ciudad` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `pais` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+CREATE TABLE `paises` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `pais` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+CREATE TABLE `posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(150) CHARACTER SET utf8 NOT NULL,
+  `cuerpo` text CHARACTER SET utf8 NOT NULL,
+  `imagen` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+CREATE TABLE `prueba` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+CREATE TABLE `usuarios` (
+  `id` int(4) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `usuario` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `pass` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `role` enum('admin','especial','usuario') COLLATE utf8_spanish_ci DEFAULT NULL,
+  `estado` tinyint(4) DEFAULT NULL,
+  `fecha` datetime NOT NULL,
+  `codigo` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `codigo_UNIQUE` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+/*****************************************
+
+alter table video 15.
+/*****************************************
+ALTER TABLE `mvc`.`usuarios` 
+CHANGE COLUMN `role` `role` INT NULL DEFAULT NULL ;
+
+DROP TABLE `mvc`.`usuarios`;
+select * from usuarios;
+
+CREATE TABLE `usuarios` (
+  `id` int(4) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `usuario` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `pass` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `role` int NOT NULL,
+  `estado` tinyint(4) DEFAULT NULL,
+  `fecha` datetime NOT NULL,
+  `codigo` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `codigo_UNIQUE` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+INSERT INTO `mvc`.`usuarios` (`id`,`nombre`,`usuario`,`pass`,`email`,`role`,`estado`,`fecha`,`codigo`)
+VALUES (null,'nombre1','admin','f554564b63bfebedb20dab6c1e81132a44580761','admin@amin.com',1,1,now(),1);
+INSERT INTO `mvc`.`usuarios` (`id`,`nombre`,`usuario`,`pass`,`email`,`role`,`estado`,`fecha`,`codigo`)
+VALUES (null,'nombre1','usuario1','f554564b63bfebedb20dab6c1e81132a44580761','admin@amin.com',2,1,now(),2);
+INSERT INTO `mvc`.`usuarios` (`id`,`nombre`,`usuario`,`pass`,`email`,`role`,`estado`,`fecha`,`codigo`)
+VALUES (null,'nombre1','usuario2','f554564b63bfebedb20dab6c1e81132a44580761','admin@amin.com',3,1,now(),3);
+						
+					
+CREATE TABLE `mvc`.`roles`(
+  `id_role` int(11) NOT NULL AUTO_INCREMENT,
+  `role` varchar(100) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id_role`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+CREATE TABLE `mvc`.`permisos`(
+  `id_permiso` int(11) NOT NULL AUTO_INCREMENT,
+  `permiso` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `key` varchar(50) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id_permiso`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+CREATE TABLE `mvc`.`permisos_role`(
+  `role` int(11) NOT NULL ,
+  `permiso` int(11) NOT NULL ,
+  `valor` tinyint  NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+alter table `mvc`.`permisos_role` add unique role(role,permiso);
+
+CREATE TABLE `mvc`.`permisos_usuario`(
+  `usuario` int(11) NOT NULL AUTO_INCREMENT,
+  `permiso` int(11) NOT NULL ,
+  `valor` tinyint  NOT NULL,
+  unique key usuario(usuario, permiso)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+insert into roles values (null, 'Administrador');
+insert into roles values (null, 'Gestor');
+insert into roles values (null, 'Editor');
+
+insert into permisos values (null, 'Tareas de administración', 'admin_access');
+insert into permisos values (null, 'Agregar Posts', 'nuevo_post');
+insert into permisos values (null, 'Editar Posts', 'editar_post');
+insert into permisos values (null, 'Eliminar Posts', 'eliminar_post');
+
+insert into permisos_role values (1,1,1),(1,2,1),(1,3,1),(1,4,1);
+insert into permisos_role values (2,2,1),(2,3,1),(2,4,1);
+insert into permisos_role values (3,2,1),(3,3,1);
+
+insert into permisos_usuario values (1,2,0),(1,3,0)
+truncate table permisos_usuario;
+
+select * from roles;
+select * from permisos;
+select * from permisos_role;
+
+select r.role, p.permiso, pr.valor 
+from roles r, permisos p, permisos_role pr
+where r.id_role = pr.role and p.id_permiso = pr.permiso 
+order by r.role;
+
+
+******************************
+*******************************
+*****************************
+
+CREATE TABLE `ciudades` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ciudad` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `pais` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+CREATE TABLE `paises` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `pais` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+CREATE TABLE `permisos` (
+  `id_permiso` int(11) NOT NULL AUTO_INCREMENT,
+  `permiso` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `key` varchar(50) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id_permiso`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+CREATE TABLE `roles` (
+  `id_role` int(11) NOT NULL AUTO_INCREMENT,
+  `role` varchar(100) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id_role`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+CREATE TABLE `usuarios` (
+  `id` int(4) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `usuario` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `pass` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `role` int(11) NOT NULL,
+  `estado` tinyint(4) DEFAULT NULL,
+  `fecha` datetime NOT NULL,
+  `codigo` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `codigo_UNIQUE` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+CREATE TABLE `permisos_role` (
+  `role` int(11) NOT NULL,
+  `permiso` int(11) NOT NULL,
+  `valor` tinyint(4) NOT NULL,
+  UNIQUE KEY `role` (`role`,`permiso`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+CREATE TABLE `permisos_usuario` (
+  `usuario` int(11) NOT NULL AUTO_INCREMENT,
+  `permiso` int(11) NOT NULL,
+  `valor` tinyint(4) NOT NULL,
+  UNIQUE KEY `usuario` (`usuario`,`permiso`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+CREATE TABLE `posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(150) CHARACTER SET utf8 NOT NULL,
+  `cuerpo` text CHARACTER SET utf8 NOT NULL,
+  `imagen` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+CREATE TABLE `prueba` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=601 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+
+observer pather
+https://www.youtube.com/watch?v=FCzUJNR-gvc
