@@ -53,4 +53,46 @@ class postController extends Controller
 
     }
 
+    public function editar($id)
+    {
+        if(!$this->filtrarInt($id)){
+            $this->redireccionar('post');
+        }
+        //si no existe el post redireccionar.
+        if(!$this->_post->getPost($this->filtrarInt($id))){
+            $this->redireccionar('post');
+        }
+        
+        $this->_view->titulo = 'Editar Post';
+        $this->_view->setJs(array('nuevo'));
+        //si se envio parametro guardar quiere decir que epresione sublim.
+        if($this->getInt('guardar') == 1){
+            $this->_view->datos = $_POST;
+            
+            if(!$this->getTexto('titulo')){
+                $this->_view->_error = 'Debe introducir el titulo del post';
+                $this->_view->renderizar('editar', 'post');
+                exit;
+            }
+            
+            if(!$this->getTexto('cuerpo')){
+                $this->_view->_error = 'Debe introducir el cuerpo del post';
+                $this->_view->renderizar('editar', 'post');
+                exit;
+            }
+            
+            $this->_post->editarPost(
+                    $this->filtrarInt($id),
+                    $this->getTexto('titulo'),
+                    $this->getTexto('cuerpo')
+                    );
+            
+            $this->redireccionar('post');
+        }
+        
+        $this->_view->datos = $this->_post->getPost($this->filtrarInt($id)); //los datos de la vista lo llenamos con el registro base datos
+        $this->_view->renderizar('editar', 'post');
+    }
+
+
 }
