@@ -1,0 +1,56 @@
+************************************************************************************************
+************************************************************************************************
+	GIT
+	https://www.youtube.com/watch?v=zH3I1DZNovk&list=PL9xYXqvLX2kMUrXTvDY6GI2hgacfy0rId&index=1
+	Nota: 
+		GIT:    Es un sistema de control de versiones
+		GitHub: Es una plataforma en donde podemos guardar nuestros proyectos y usar GIT para administrar.
+************************************************************************************************
+************************************************************************************************
+1.- Instalar GIT "https://git-scm.com/"
+	1.1.- Windows: Instalar git bash
+1.- Configuración "https://www.youtube.com/watch?v=XXdaqtLgOGI&list=PL9xYXqvLX2kMUrXTvDY6GI2hgacfy0rId&index=2"
+	1.1.- Crear usuario: git config --global user.name "byron"
+	1.2.- Verificar usuario: git config --global user.name
+	1.3.- Cambiar nombre: git config --global user.name "Nuevo nombre"
+	1.4.- Configurar correo: git config --global user.email "bgva2005@yahoo.com"
+	1.5.- Verificar correo: git config --global user.email
+	1.6.- Para configurar colores: git config --global color.ui true
+	1.7.- Listado de nuestras configuraciones: git config --global --list
+	1.8.- Eliminar algo: "git config --unset --local user.name" -- "git config --unset --global user.name"
+	1.9.- Problemas de subida: Abrir Git GUI/Edit/Opciones y agregar correo
+2.- Crear Proyecto "usando el git bash"
+	2.1.- Usando el git bash ir a carpeta de proyecto "cd /c/dev/Homestead/proyectos/plantilla2_MVC" y poner comando "git init" para marcar inicio de proyecto (empieza a monitorear)
+	2.2.- para saber status de nuestro proyecto: "git status"
+	2.3.- Para agregar archivos
+		2.3.1.- colocar comando "git add index.html"
+		2.3.2.- Para agregar TODO: "git add -A"
+		2.3.3.- Guardar con mensaje para identificarlos: git commit -m "Mensaje"
+		2.3.4.- PASOS: 1.- git add -A 2.- git commit -m "Mensaje"
+		2.3.5.- Listados de commits: git log
+		2.3.6.- Para viajar en el timepo
+			2.3.6.1.- Poner "git log"
+			2.3.6.2.- Copiar código SHA al que queremos ir
+			2.3.6.3.- Poner "git checkout CODIGO_SHA"
+			2.3.6.4.- Ir a última versión: "git checkout master"
+		2.3.7.- Para quitar errores o commits: "git reset"
+			2.3.7.1.- Sin tocar código: "git reset --soft"
+				2.3.7.1.1.- Ejemplo: git reset --soft CODIGO_SHA
+			2.3.7.2.- Sin tocar stagin/working area: "git reset --mixed
+			2.3.7.3.- Borrar TODO: "git reset --hard"
+				2.3.7.3.1.- Ejemplo: git reset --hard CODIGO_SHA  (Nos retorna al sha q pongamos, borrando TODO el código)
+		2.3.8.- Para AYUDA: "git help" "git help status"
+		2.3.9.- Renombrar un commit
+			2.3.9.1.- Renombrar: "git commit -amend -m "TextoNuevo"
+			2.3.9.2.- Subir a GitHub: "git push origin master -f"
+		2.3.10.- SALIR: q
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
