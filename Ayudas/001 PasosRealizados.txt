@@ -21,12 +21,17 @@
 	1.9.- Problemas de subida: Abrir Git GUI/Edit/Opciones y agregar correo
 2.- Crear Proyecto "usando el git bash"
 	2.1.- Usando el git bash ir a carpeta de proyecto "cd /c/dev/Homestead/proyectos/plantilla2_MVC" y poner comando "git init" para marcar inicio de proyecto (empieza a monitorear)
-	2.2.- para saber status de nuestro proyecto: "git status"
+	2.2.- En GitHub crear un nuevo proyecto: "https://github.com/Byron2016/Plantilla2_MVC"
+	2.3.- En GitHub copiar la ruta http: "https://github.com/Byron2016/Plantilla2_MVC.git"
+	2.4.- En git bash ejecutar comando: "git remote add origin RutaCopiada"
+	2.5.- verificar : "git remote -v"
+	2.6.- para saber status de nuestro proyecto: "git status"
 	2.3.- Para agregar archivos
 		2.3.1.- colocar comando "git add index.html"
 		2.3.2.- Para agregar TODO: "git add -A"
 		2.3.3.- Guardar con mensaje para identificarlos: git commit -m "Mensaje"
 		2.3.4.- PASOS: 1.- git add -A 2.- git commit -m "Mensaje"
+		2.3.4.- Subir: "git push origin master" -- master es la rama
 		2.3.5.- Listados de commits: git log
 		2.3.6.- Para viajar en el timepo
 			2.3.6.1.- Poner "git log"
@@ -45,7 +50,184 @@
 			2.3.9.2.- Subir a GitHub: "git push origin master -f"
 		2.3.10.- SALIR: q
 	
+3.- Ramas y Fusiones
+	3.1.- Concepto Head: Commit donde nos encontramos ahora.
+	3.2.- Ramas: Línea de tiempo en nuetro proyecto, que nos sierve para arreglar errores, experimentar, hacer grandes cambios, etc
+		3.2.1.- Rama Master: Se genera por defout al hacere "git init"
+		3.2.2.- Visualizar ramas: "git branch" la que despliega coloreada es en la que estamos
+		3.2.3.- Crear rama: "git branch nombreNuevaRama"
+		3.2.4.- Moverse a otra rama: "git checkout nombreNuevaRama" (todo cambio se hará en esta rama)
+		3.2.5.- BORRAR ramas: "git branch -D nombreNuevaRama"
+		3.2.6.- Mostrar ramas ocultas: "git branch -a"
+	3.3.- Fusiones: Pasar cambios de un branch a otro
+		3.3.1.- Ir a rama destino: "git checkout nombreRamaDestino"
+		3.3.2.- Ir a rama destino: "git merge nombreRamaASerAbsorvida"
+		3.3.3.- Tipos de fusiones: Fast-Forward y Manual Merge
+			3.3.3.1.- Fast-Forward: Sólo hace fución y no pregunta nada.
+			3.3.3.2.- Manual Merge: Pasa por nosotros y nos pide hacer alguna actividad.
+	3.4.- Crear y Moverse a una rama : "git checkout -b nombreNuevaRama"
+
+4.- GitHub
+	4.0.- Iniciar 
+		4.0.1.-  cd /c/dev/Homestead
+		4.0.1.-  vagrant up
+		4.0.1.-  cd /c/dev/Homestead/proyectos/plantilla_MVC
+		4.0.1.-  git remote -v
+		4.0.1.-  git commit -m "Inicio video 16 16 PHP:POO+MVC - Crear un framework básico(Listas de Acceso(ACL) parte 2/3)"
+		4.0.1.-  git push origin master
+		4.0.1.-  git add -A
+		4.0.1.-  git tag -a vx.0 -m "Fin Video x"
+		4.0.1.-  git push origin vx.0
+		4.0.1.-  
 	
+	4.1.- Crear en GitHub cuenta (https://github.com/login: Byron2016/NomBarr2016)
+	4.2.- Clonar un proyecto: "git clone" (Toma proyecto de gitHub y lo pasa a nuestra computadora)
+		4.2.1.- Dar copiar en GigHub
+		4.2.2.- en Git: "git clone COPIADO"
+	4.3.- Subir proyecto a GitHub	
+		4.3.1.- Repositorios Remotos: los que están en GitHub / Repositorio Local: En nuestra computadora
+		4.3.2.- Crear Repositorio en GitHub
+			4.3.2.1.- Puede ser cualquier nombre no necesariamente el del repositorio locales
+		4.3.3.- Vincular Repositorios: "git "
+				4.3.1.- Copiar ruta
+				4.3.2.- En Git poner: "git remote add origin RutaCopiada"
+				4.3.3.- verificar : "git remote -v"
+				4.3.4.- Desconectar repositorio: "git remote remove origin"
+					4.3.4.1.- Conectarce: "git remote add origin RutaCopiada"
+				4.3.5.- Pasar de Git a GitHub: "git push origin master"  -- (master es la rama a subir)
+				4.3.6.- PASOS
+					2.3.6.1.- Para agregar TODO: "git add -A"
+					2.3.6.2.- Guardar con mensaje para identificarlos: git commit -m "Mensaje"
+					2.3.6.3.- Subir: "git push origin master" -- master es la rama
+	4.4.- Utilidades
+		4.4.1.- Issues: Cosas a mejorar en nuestros proyectos
+		4.4.2.- Milestones: Grupo de issues para un período de tiempo
+		4.4.3.- Labes: Manera de organizar diferentes tipos de problemas.
+		4.4.4.- Assignees: Asignar a alguien
+		4.4.5.- Tags: Puntos específicos en historia de proyectos (Versionamientos) (a commit se le dice qué versión es)
+			4.4.5.1.- Crear tags ultimo commit: "git tag -a v1.0 -m "Mensaje""
+			4.4.5.2.- Crear tags a otro commit: "git tag -a v1.0 -m "Mensaje" Codigo_SHA"
+			4.4.5.3.- Subir tags a GitHub: git push origin v1.0
+			4.4.5.4.- Subida masiva: "git push origin --tags"
+		4.4.6.- Workflows (TRABAJO COLABORATIVO):
+			4.4.6.1.- Proyectos propios: Lo ya visto
+			4.4.6.2.- Proyectos en EQUIPO: 
+				4.4.6.2.1.- Crear una nueva organización (Quien recive avisos, y agregar personas)
+				4.4.6.2.2.- Transferir repositorio a la organización
+				4.4.6.2.3.- Cargar cambios de equipo a nuestro local:
+					4.4.6.2.3.1.- Bajar cambios en repositorio remoto a origin/master: "git fetch origin"
+					4.4.6.2.3.1.- Copiar al master local: 
+						1.- Desconectarse si no se está en repositorio adecuado
+							1.1.- verificar repositorio q está conectado: "git remote -v"
+							1.2.- desconectarse del repositorio: "git remote remove origin" 
+							1.3.- verificar ya no está conectado: "git remote -v"
+							1.4.- conectarse a repositorio compartido: "git remote add origin LINK_COMPARTIDO"
+							1.5.- Verificar repositorio q está conectado: "git remote -v"
+						2.- Cambiarse a la rama destino: "git checkout master" 
+						3.- Copiar a rama destino lo que está en rama origin/master: "git fetch origin"
+						4.- Pasar cambios de rama oculta a rama destino: "git merge origin/master" 
+						5.- Verificar cambios: "git log"
+						6.- Guardar cambios q se tengan locales: "git add -A"
+						7.- Crear commit: "git commit -m "mensaje""
+						8.- Subir commits que se tenga locales: "git push origin master"
+						9.- En caso de haber conflictos son marcados con "<<<<<<<<" y hay que hacer cambio MANUAL
+							9.1.- <<<<<<<<< HEAD marca donde está nuestro cambio
+							9.2.- >>>>>>>>> origin/master lo que está en la rama oculta
+							9.3.- borrar el cambio q no queremos y las etiquetas de 9.1 y 9.2
+							9.4.- Verificar lo cambiado: "git status"
+							9.5.- Guardar cambios q se tengan locales: "git add -A"
+							9.6.- Crear commit: "git commit -m "se arreglan conflictos queda el cambio segundo""
+							9.7.- Subir a gitHub: "git push  master"
+			4.4.6.3.- Proyectos con TERCEROS: (video 7 min 25)
+				4.4.6.3.1.- Ir al repositorio y presionar FORK
+				4.4.6.3.2.- Verificar ramas ocultas	
+					4.4.6.3.2.1.- origin/master (si tenemos colaborativo local)
+					4.4.6.3.2.2.- upstream/master (al original)  (ojo: upstream puede cambiar, hay que verificar en la organización)
+				4.4.6.3.3.- Se hace Add y el commit de los cambios realizados
+				4.4.6.3.4.- Se suben los cambios con push (Esto sube al repositorio del perfil ya que se hizo FORK)
+				4.4.6.3.5.- Comunicar estos cambios a la organización: Presionar botón "New pull request" -- "create pull request"
+				
+				
+							
+
+	4.5.- Pages: Generación de sitios web a partir de nuestros proyectos
+		4.5.1.- Crear sitio web para nuestro usuario u organización
+			4.5.1.1.- Crear un repositorio con nombre: usuario.github.io
+			4.5.1.2.- Clonar repositiro para pasarlo localmente: "get clone url"
+			4.5.1.3.- Subir cambios con "git push"
+			4.5.1.4.- Validar cambios llamando al domineo: usuario.github.io
+		4.5.2.- Sitios web para nuestros proyectos
+			4.5.2.1.- Crear repositorio
+			4.5.2.2.- Clonarlo localmente
+			4.5.2.3.- Crear rama nueva: "git branch gh-pages"
+			4.5.2.4.- Subir los cambios a esta rama nueva: "git push origin gh-pages"
+			4.5.2.5.- Visualizar página: ir  "usuarios/repositorio"
+	4.6.- Deploymet con git: Commits de repositorio local va a gitHub y al servidor
+		4.6.1.- Llave SSH: sirve para conectarse a servidores sin necesidad poner cotraseña cada rato.
+			4.6.1.1.- Generación poner: "ssh-keygen"
+			4.6.1.2.- La id_rsa NADIE la debe ver es la llave privada.
+			4.6.1.3.- La id_rsa.pub la subimos a GIT a través de opcion "SSH Keys"
+			4.6.1.4.- Mandar cambios sin usar claves
+				4.6.1.4.1.- Conectarse a repositorio con ssh: "git remote add origin URL-SSH"
+				4.6.1.4.2.- Evitar archivos basura: 
+					1.- touch .gitignore
+					2.- Enumerar archivos que no queremos.
+						# Compiled source #
+						###################
+						*.com
+						*.class
+						*.dll
+						*.exe
+						*.o
+						*.so
+						*.sh
+						 
+						# Packages #
+						############
+						*.7z
+						*.dmg
+						*.gz
+						*.iso
+						*.jar
+						*.rar
+						*.tar
+						*.zip
+						 
+						# Logs and databases #
+						######################
+						*.log
+						*.sql
+						*.sqlite
+						 
+						# OS generated files #
+						######################
+						.DS_Store
+						.DS_Store?
+						._*
+						.Spotlight-V100
+						.Trashes
+						ehthumbs.db
+						Thumbs.db
+						
+				4.6.1.4.3.- Hacer el Add y el Commit
+				4.6.1.4.4.- Subir: "git push origin Rama"
+				4.6.1.4.5.- Poner llave pública en SERVIDOR
+					4.6.1.4.5.1.- Debe estar hospedad en un servidor que acepte SSH (clouddigitalocean si lo tiene)
+					4.6.1.4.5.2.- Subir el SSH en el servidor
+					4.6.1.4.5.3.- Conectarse: "ssh root@Domineo.com" (si no se tiene domineo, se usa la IP)
+					4.6.1.4.5.4.- Con la clave anterior ESTOY EN EL SERV REMOTO, IR A CARPETA CONTENEDORA
+					4.6.1.4.5.5.- Crear llave en el servidor y copiar la publica a github
+					4.6.1.4.5.6.- ir a GitHub/configuraciones/sshkeys y agregarla
+					4.6.1.4.5.7.- Escribir: "git pull origen RamaDestino"  (pull: fetch + merge  (solo usar si ya se sabe fetch y merge)
+					4.6.1.4.5.8.- Git también debe ser instalado en el SERVIDOR
+	4.7.- git Hooks: Mecanismos para activar scripts de acuerdo a cierta acción. (Existen 17)
+		4.7.1.- 
+5.- Visual Studio + Git (https://www.youtube.com/watch?v=egy2r6ReaeI)	
+	5.1.- Cuando se crea proyecto activar check "add to source control"
+	5.2.- Seleccionar el source control "git"
+	5.3.- En changes se puede poner los commits
+
+
 	
 	
 	
