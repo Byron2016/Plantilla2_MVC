@@ -1,0 +1,20 @@
+*************************************************
+*************************************************
+Video 4
+*************************************************
+*************************************************
+
+CREATE SCHEMA `mvc1` ;
+
+CREATE TABLE `mvc1`.`posts` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `titulo` VARCHAR(150) CHARACTER SET 'utf8' NOT NULL,
+  `cuerpo` TEXT(200) CHARACTER SET 'utf8' NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+
+INSERT INTO `mvc1`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 1','cuerpo 1');
+INSERT INTO `mvc1`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 2','cuerpo 2');

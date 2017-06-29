@@ -17,6 +17,6 @@ define('APP_COMPANY', 'plantilla_mvc.net');
     define('DB_HOST', 'localhost');
     define('DB_USER', 'homestead');
     define('DB_PASS', 'secret');
-    define('DB_NAME', 'mvc');
+    define('DB_NAME', 'mvc1');
     define('DB_CHAR', 'utf8');
     define('DB_PORT', '33060');

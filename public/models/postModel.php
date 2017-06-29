@@ -6,7 +6,7 @@ class postModel extends Model
     }
     
     
-    public function getPosts()
+    public function getPostsPrueba()
     {
         $post = array(
             'id' => 1,
@@ -14,6 +14,12 @@ class postModel extends Model
             'cuerpo' => 'Cuerpo Post'
         );
         return $post;
+    }
+
+    public function getPosts()
+    {
+        $post = $this->_db->query("select * from posts");
+        return $post->fetchall();
     }
     
 }
