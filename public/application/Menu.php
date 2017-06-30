@@ -36,7 +36,7 @@
             $menu[] = array (
                 'id' => 'registro',
                 'titulo' => 'Registrar Usuario',
-                'enlace' => BASE_URL . 'usuarios/registro'//,
+                'enlace' => BASE_URL . 'registro'//,
                 //'imagen' => 'icon-book'
             );
         }
