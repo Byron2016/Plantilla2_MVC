@@ -47,7 +47,8 @@ class Session
             exit;
         }
         
-        //Session::tiempo();
+        Session::tiempo();
+        
         if(Session::getLevel($level) > Session::getLevel(Session::get('level'))){
             header('location:' . BASE_URL . 'error/access/5050');
             exit;
@@ -85,6 +86,8 @@ class Session
             header('location:' . BASE_URL . 'error/access/5050');
             exit;
         }
+
+        Session::tiempo();
      
         if($noAdmin == false){
             if(Session::get('level') == 'admin'){
@@ -121,7 +124,25 @@ class Session
         
         return false;
     }
+    public static function tiempo(){
+        
+        if((!Session::get('tiempo')) || (!defined('SESSION_TIME'))){
+            throw new Exception('Error Session/Tiempo: No se ha definido el timpo de sesion');
+        }
 
+        if(SESSION_TIME == 0){
+            //tiempo de session indefinido
+            return;
+        }
+        
+        if((time() - Session::get('tiempo')) > (SESSION_TIME * 60)){
+            Session::destroy();
+            header('location:' . BASE_URL . 'error/access/8080');
+        }
+        else{
+            Session::set('tiempo', time()); //reinicia tiempo de sesion y coloca el tiempo actual
+        }
+    }
 
     
 }

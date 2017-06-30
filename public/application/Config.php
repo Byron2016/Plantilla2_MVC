@@ -20,3 +20,6 @@ define('APP_COMPANY', 'plantilla_mvc.net');
     define('DB_NAME', 'mvc1');
     define('DB_CHAR', 'utf8');
     define('DB_PORT', '33060');
+
+//sesiones
+define('SESSION_TIME', 10);

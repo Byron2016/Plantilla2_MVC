@@ -11,7 +11,8 @@ class loginController extends Controller
     {
            
             Session::set('autenticado', true);
-            Session::set('level', 'admin');
+            Session::set('level', 'usuario');
+            Session::set('tiempo', time());
             Session::set('var1', 'var1');
             Session::set('var2', 'var2');
             $this->redireccionar('login/mostrar');
