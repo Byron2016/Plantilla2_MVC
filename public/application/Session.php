@@ -78,6 +78,50 @@ class Session
             return $rol[$level];
         }
     }
+
+    public static function accesoEstricto(array $level, $noAdmin = FALSE)
+    {
+        if(!Session::get('autenticado')){
+            header('location:' . BASE_URL . 'error/access/5050');
+            exit;
+        }
+     
+        if($noAdmin == false){
+            if(Session::get('level') == 'admin'){
+                return;
+            }
+        }
+        
+        if(count($level)){
+            if(in_array(Session::get('level'), $level)){
+                return;
+            }
+        }
+        
+        header('location:' . BASE_URL . 'error/access/5050');
+        
+    }
+
+    public static function accesoViewEstricto(array $level, $noAdmin = FALSE){
+        if(!Session::get('autenticado')){
+            return false;
+        }
+        
+        if($noAdmin == false){
+            if(Session::get('level') == 'admin'){
+                return true;
+            }
+        }
+        
+        if(count($level)){
+            if(in_array(Session::get('level'), $level)){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+
     
 }
-?>
