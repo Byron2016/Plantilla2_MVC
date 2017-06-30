@@ -34,7 +34,11 @@ try {
 	require_once APP_PATH . 'Register.php';
 	require_once APP_PATH . 'DataBase.php';
 	require_once APP_PATH . 'Session.php';
-
+	require_once APP_PATH . 'Hash.php';
+/*
+	echo Hash::getHash('md5','1234',HASH_KEY); exit; //d27fae2fb0995a49b66be9e97667c8a3
+	echo Hash::getHash('sha1','1234',HASH_KEY); exit;
+*/
 	//echo '<pre>'; print_r(get_required_files()); //verificar correccto importacion de archivos.
 
 	/*

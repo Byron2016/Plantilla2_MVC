@@ -23,3 +23,6 @@ define('APP_COMPANY', 'plantilla_mvc.net');
 
 //sesiones
 define('SESSION_TIME', 10);
+
+//hash key
+define('HASH_KEY', '5806aed8e2552'); //echo uniqid();exit; //5806aed8e2552
