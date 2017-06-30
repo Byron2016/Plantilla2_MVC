@@ -18,3 +18,27 @@ COLLATE = utf8_spanish_ci;
 
 INSERT INTO `mvc1`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 1','cuerpo 1');
 INSERT INTO `mvc1`.`posts` (`id`, `titulo`, `cuerpo`) VALUES (null,'titulo 2','cuerpo 2');
+
+
+*************************************************
+*************************************************
+Video 9
+*************************************************
+*************************************************
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id` int(4) unsigned auto_increment primary key,
+  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `usuario` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `pass` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `role` enum("admin","especial","usuario"),
+  `estado` tinyint(4) DEFAULT NULL
+);
+
+describe usuarios;
+

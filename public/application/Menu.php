@@ -17,3 +17,26 @@
 				'enlace' => BASE_URL . 'post'
 			)
 		);
+
+        if(Session::get('autenticado')){
+            $menu[] = array(
+                'id' => 'login',
+                'titulo' => 'Cerrar Sesion',
+                'enlace' => BASE_URL . 'login/cerrar'//,
+                //'imagen' => 'icon-book'
+            );
+        } else {
+            $menu[] = array(
+                'id' => 'login',
+                'titulo' => 'Iniciar Sesion',
+                'enlace' => BASE_URL . 'login'//,
+                //'imagen' => 'icon-book'
+            );
+            
+            $menu[] = array (
+                'id' => 'registro',
+                'titulo' => 'Registrar Usuario',
+                'enlace' => BASE_URL . 'usuarios/registro'//,
+                //'imagen' => 'icon-book'
+            );
+        }
